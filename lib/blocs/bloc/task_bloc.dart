@@ -8,18 +8,18 @@ part 'task_state.dart';
 
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
   TaskBloc() : super(TaskState(allTask: const [])) {
-    on<TaskEvent>((event, emit) {
-      if (event is AddTask) {
-        _onAddTask;
-      } else if (event is DeleteTask) {
-        _onDeleteTask;
-      } else if (event is UpDateTask) {
-        _onUpDateTask;
-      }
-    });
-    // on<AddTask>(_onAddTask);
-    // on<DeleteTask>(_onDeleteTask);
-    // on<UpDateTask>(_onUpDateTask);
+    // on<TaskEvent>((event, emit) {
+    //   if (event is AddTask) {
+    //     _onAddTask;
+    //   } else if (event is DeleteTask) {
+    //     _onDeleteTask;
+    //   } else if (event is UpDateTask) {
+    //     _onUpDateTask;
+    //   }
+    // });
+    on<AddTask>(_onAddTask);
+    on<DeleteTask>(_onDeleteTask);
+    on<UpDateTask>(_onUpDateTask);
   }
 
   void _onAddTask(AddTask event, Emitter<TaskState> emit) {
