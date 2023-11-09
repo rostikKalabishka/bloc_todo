@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/bloc/task_bloc.dart';
+import '../widgets/task_list_widget.dart';
+import 'add_task_screen.dart';
+
+// ignore: must_be_immutable
 class TasksScreen extends StatelessWidget {
   const TasksScreen({Key? key}) : super(key: key);
 
@@ -10,25 +16,30 @@ class TasksScreen extends StatelessWidget {
         title: const Text('Tasks App'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => addTask(context),
             icon: const Icon(Icons.add),
           )
         ],
       ),
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
+          const Center(
             child: Chip(
               label: Text(
                 'Tasks:',
               ),
             ),
           ),
+          BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
+            return TaskListWidget(
+              taskList: state.allTask,
+            );
+          })
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => addTask(context),
         tooltip: 'Add Task',
         child: const Icon(Icons.add),
       ),

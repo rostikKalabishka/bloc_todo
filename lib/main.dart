@@ -1,5 +1,8 @@
 import 'package:bloc_todo/screens/task_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'blocs/bloc/task_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,8 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(),
-      home: const TasksScreen(),
+      theme: ThemeData(colorScheme: const ColorScheme.dark()),
+      home: BlocProvider(
+        create: (context) => TaskBloc(),
+        child: const TasksScreen(),
+      ),
     );
   }
 }
