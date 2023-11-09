@@ -35,10 +35,11 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onUpDateTask(UpDateTask event, Emitter<TaskState> emit) {
     final state = this.state;
     final task = event.task;
+    final int index = state.allTask.indexOf(task);
     List<Task> allTask = List.from(state.allTask)..remove(task);
     task.isDone == false
-        ? allTask.add(task.copyWith(isDone: true))
-        : allTask.add(task.copyWith(isDone: false));
+        ? allTask.insert(index, task.copyWith(isDone: true))
+        : allTask.insert(index, task.copyWith(isDone: false));
 
     emit(TaskState(allTask: allTask));
   }
