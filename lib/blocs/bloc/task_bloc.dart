@@ -7,7 +7,7 @@ part 'task_event.dart';
 part 'task_state.dart';
 
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
-  TaskBloc() : super(TaskState(allTask: const [])) {
+  TaskBloc() : super(const TaskState(allTask: [])) {
     // on<TaskEvent>((event, emit) {
     //   if (event is AddTask) {
     //     _onAddTask;
@@ -32,5 +32,14 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     emit(TaskState(allTask: List.from(state.allTask)..remove(event.task)));
   }
 
-  void _onUpDateTask(UpDateTask event, Emitter<TaskState> emit) {}
+  void _onUpDateTask(UpDateTask event, Emitter<TaskState> emit) {
+    final state = this.state;
+    final task = event.task;
+    List<Task> allTask = List.from(state.allTask)..remove(task);
+    task.isDone == false
+        ? allTask.add(task.copyWith(isDone: true))
+        : allTask.add(task.copyWith(isDone: false));
+
+    emit(TaskState(allTask: allTask));
+  }
 }

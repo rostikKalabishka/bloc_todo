@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class TaskListWidget extends StatelessWidget {
-  TaskListWidget(
+  const TaskListWidget(
       {required this.taskList,
       // this.onPressed,
       super.key});
@@ -27,6 +27,14 @@ class TaskListWidget extends StatelessWidget {
                   context
                       .read<TaskBloc>()
                       .add(DeleteTask(task: taskList[index]));
+                },
+              ),
+              leading: Checkbox(
+                value: taskList[index].isDone,
+                onChanged: (value) {
+                  context
+                      .read<TaskBloc>()
+                      .add(UpDateTask(task: taskList[index]));
                 },
               ),
             );
